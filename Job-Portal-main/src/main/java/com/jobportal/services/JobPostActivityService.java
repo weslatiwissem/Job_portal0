@@ -39,4 +39,9 @@ public class JobPostActivityService {
 
         return jobPostActivityRepository.findById(id).orElseThrow(()->new RuntimeException("Job not found"));
     }
+
+    public List<JobPostActivity> getAll() {
+        return jobPostActivityRepository.findAll();
+    }
+
 }

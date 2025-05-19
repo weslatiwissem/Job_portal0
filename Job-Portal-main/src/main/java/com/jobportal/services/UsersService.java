@@ -20,7 +20,7 @@ import java.util.Date;
 @Service
 public class UsersService {
     private final UsersRepository usersRepository;
-    private  final JobSeekerProfileRepository jobSeekerProfileRepository;
+    private  final  JobSeekerProfileRepository jobSeekerProfileRepository;
     private final RecruiterProfileRepository recruiterProfileRepository;
     private  final PasswordEncoder passwordEncoder;
 

@@ -77,4 +77,6 @@ public class JobPostActivityController {
         model.addAttribute("user", usersService.getCurrentUserProfile());
         return "add-jobs";
     }
+
+
 }
