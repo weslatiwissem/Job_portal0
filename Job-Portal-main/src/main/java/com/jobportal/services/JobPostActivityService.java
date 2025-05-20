@@ -4,13 +4,11 @@ import com.jobportal.entity.*;
 import com.jobportal.repository.JobPostActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class JobPostActivityService {
-
     @Autowired
     private final JobPostActivityRepository jobPostActivityRepository;
 
@@ -24,7 +22,6 @@ public class JobPostActivityService {
 
     public List<RecruiterJobsDto> getRecruiterJobs(int recruiter) {
         List<IRecruiterJobs> recruiterJobsDto = jobPostActivityRepository.getRecruiterJobs(recruiter);
-
         List<RecruiterJobsDto> recruiterJobsDtoList = new ArrayList<>();
 
         for (IRecruiterJobs rec : recruiterJobsDto) {
@@ -35,13 +32,19 @@ public class JobPostActivityService {
         }
         return recruiterJobsDtoList;
     }
-    public JobPostActivity getOne(int id) {
 
-        return jobPostActivityRepository.findById(id).orElseThrow(()->new RuntimeException("Job not found"));
+    public JobPostActivity getOne(int id) {
+        return jobPostActivityRepository.findById(id).orElseThrow(() -> new RuntimeException("Job not found"));
     }
 
     public List<JobPostActivity> getAll() {
         return jobPostActivityRepository.findAll();
     }
 
+    public List<JobPostActivity> searchJobs(String title, String location) {
+        return jobPostActivityRepository.searchJobs(
+                title != null ? title : "",
+                location != null ? location : ""
+        );
+    }
 }

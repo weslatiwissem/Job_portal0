@@ -119,17 +119,30 @@
 
     <!-- Show only for Job Seekers -->
     <div sec:authorize="hasAuthority('Job Seeker')">
-
         <h2>Available Job Postings</h2>
 
-        <ul>
-            <li th:each="job : ${jobPosts}">
-                <strong th:text="${job.jobTitle}"></strong> –
-                <span th:text="${job.jobDescription}"></span>
+        <!-- Search Form -->
+        <form th:action="@{/dashboard/}" method="get" class="search-form">
+            <input type="text" name="title" placeholder="Job title..." th:value="${param.title}">
+            <input type="text" name="location" placeholder="Location..." th:value="${param.location}">
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- Job List -->
+        <ul class="job-list">
+            <li th:each="job : ${allJobs}">
+                <h3 th:text="${job.jobTitle}">Job Title</h3>
+                <p>
+                    <span th:text="${job.jobCompanyId?.name} ?: 'Company not specified'"></span> •
+                    <span th:text="${job.jobLocationId?.city} ?: 'Remote'"></span>
+                </p>
+                <p th:text="${job.descriptionOfJob} ?: 'No description available'"></p>
+                <p>Salary: <span th:text="${job.salary} ?: 'Not specified'"></span></p>
+                <a th:href="@{/apply/} + ${job.jobPostId}" class="btn">Apply Now</a>
             </li>
         </ul>
 
-        <p th:if="${#lists.isEmpty(jobPosts)}">No jobs available at the moment.</p>
+        <p th:if="${#lists.isEmpty(allJobs)}">No jobs available at the moment.</p>
     </div>
 </main>
 
